@@ -2,6 +2,7 @@ import './App.css';
 // import axios from 'axios';
 import { useEffect, useState } from 'react';
 import DUMMY_NOTES from './DUMMY_NOTES';
+import Note from './components/Note/Note';
 
 function App() {
   const [notesList, setNotesList] = useState<Array<any>>([]);
@@ -30,10 +31,7 @@ function App() {
         {
           notesList.map((noteItem, index) => {
             return (
-              <div key={index}>
-                <h4>{noteItem?.text}</h4>
-                <h5>{noteItem?.link}</h5>
-              </div>
+              <Note key={index} note={noteItem} />
             )
           })
         }
