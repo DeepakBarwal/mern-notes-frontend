@@ -26,7 +26,6 @@ function App() {
 
   return (
     <div className="App">
-      <div>Notes Application</div>
       <div className="notes-list">
         {
           notesList.map((noteItem, index) => {
