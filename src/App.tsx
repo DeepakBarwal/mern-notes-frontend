@@ -30,9 +30,9 @@ function App() {
         {
           notesList.map((noteItem, index) => {
             return (
-              <div>
-                <h4>{notesList[index]?.text}</h4>
-                <h5>{notesList[index]?.link}</h5>
+              <div key={index}>
+                <h4>{noteItem?.text}</h4>
+                <h5>{noteItem?.link}</h5>
               </div>
             )
           })
