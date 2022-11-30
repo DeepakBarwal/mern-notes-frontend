@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 function App() {
-  const [notesList, setNotesList] = useState([]);
+  const [notesList, setNotesList] = useState<any[]>([]);
 
   const getNotes = async () => {
     try {
@@ -21,6 +21,10 @@ function App() {
       <div>Notes Application</div>
       <div>
         <button onClick={getNotes}>Click Me</button>
+      </div>
+      <div>
+        <h4>{notesList[0]?.text}</h4>
+        <h5>{notesList[0]?.link}</h5>
       </div>
     </div>
   );
