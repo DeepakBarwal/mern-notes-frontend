@@ -24,13 +24,17 @@ function App() {
 
   console.log(notesList);
 
+  const updateNoteItem = (text: string) => {
+    console.log(text);
+  }
+
   return (
     <div className="App">
       <div className="notes-list">
         {
           notesList.map((noteItem, index) => {
             return (
-              <Note key={index} note={noteItem} />
+              <Note key={index} note={noteItem} onNoteUpdate={updateNoteItem} />
             )
           })
         }
