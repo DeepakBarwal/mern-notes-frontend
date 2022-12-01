@@ -3,6 +3,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import DUMMY_NOTES from './DUMMY_NOTES';
 import Note from './components/Note/Note';
+import INote from './interfaces/note.interface';
 
 function App() {
   const [notesList, setNotesList] = useState<Array<any>>([]);
@@ -24,8 +25,8 @@ function App() {
 
   console.log(notesList);
 
-  const updateNoteItem = (text: string) => {
-    console.log(text);
+  const updateNoteItem = (updatedNote: INote) => {
+    
   }
 
   return (

@@ -4,13 +4,18 @@ import './Note.css';
 
 type Props = {
   note: INote;
-  onNoteUpdate: Function;
+  onNoteUpdate: (note: INote) => void;
 };
 
 // Dumb, presentational component
 const Note: FC<Props> = ({ note, onNoteUpdate }) => {
   const noteTextUpdated = (event: FocusEvent<HTMLDivElement>) => {
-    onNoteUpdate(event.currentTarget.textContent);
+    const newTextValue = event.currentTarget.textContent;
+    const updatedNoteObj: INote = {
+      ...note,
+      text: newTextValue || ''
+    }
+    onNoteUpdate(updatedNoteObj);
   }
 
   return (
