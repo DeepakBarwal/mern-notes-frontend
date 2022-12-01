@@ -26,7 +26,13 @@ function App() {
   console.log(notesList);
 
   const updateNoteItem = (updatedNote: INote) => {
-    
+    const updatedList = notesList.map((noteItem: INote) => {
+      if (noteItem._id === updatedNote._id) {
+        return updatedNote;
+      }
+      return noteItem;
+    });
+    setNotesList(updatedList);
   }
 
   return (
