@@ -6,11 +6,16 @@ import Note from './components/Note/Note';
 import INote from './interfaces/note.interface';
 
 function App() {
-  const [notesList, setNotesList] = useState<Array<any>>([]);
+  const [notesList, setNotesList] = useState<Array<INote>>([]);
 
   useEffect(() => {
     setNotesList(DUMMY_NOTES);
   }, []);
+
+  useEffect(() => {
+    const notesListString = JSON.stringify(notesList);
+    localStorage.setItem('my-notes', notesListString);
+  }, [notesList]);
 
   // const getNotes = async () => {
   //   try {
