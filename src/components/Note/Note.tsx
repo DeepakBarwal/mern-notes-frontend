@@ -11,6 +11,9 @@ type Props = {
 const Note: FC<Props> = ({ note, onNoteUpdate }) => {
   const noteTextUpdated = (event: FocusEvent<HTMLDivElement>) => {
     const newTextValue = event.currentTarget.textContent;
+    if (newTextValue === note.text) {
+      return;
+    }
     const updatedNoteObj: INote = {
       ...note,
       text: newTextValue || ''

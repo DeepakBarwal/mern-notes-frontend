@@ -6,17 +6,17 @@ import Note from './components/Note/Note';
 import INote from './interfaces/note.interface';
 
 function App() {
-  const [notesList, setNotesList] = useState<Array<INote>>([]);
+  const [notesList, setNotesList] = useState<Array<INote>>(JSON.parse(localStorage.getItem('my-notes') || JSON.stringify(DUMMY_NOTES)));
 
-  useEffect(() => {
-    const notesListStringFromLocalStorage = localStorage.getItem('my-notes');
-    if (notesListStringFromLocalStorage) {
-      const notesListArrayFromStorage = JSON.parse(notesListStringFromLocalStorage);
-      setNotesList(notesListArrayFromStorage);
-    } else {
-      setNotesList(DUMMY_NOTES);
-    }
-    }, []);
+  // useEffect(() => {
+  //   const notesListStringFromLocalStorage = localStorage.getItem('my-notes');
+  //   if (notesListStringFromLocalStorage) {
+  //     const notesListArrayFromStorage = JSON.parse(notesListStringFromLocalStorage);
+  //     setNotesList(notesListArrayFromStorage);
+  //   } else {
+  //     setNotesList(DUMMY_NOTES);
+  //   }
+  //   }, []);
 
   useEffect(() => {
     const notesListString = JSON.stringify(notesList);
