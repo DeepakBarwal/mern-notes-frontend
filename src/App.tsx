@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import DUMMY_NOTES from './DUMMY_NOTES';
 import Note from './components/Note/Note';
 import INote from './interfaces/note.interface';
-import { getNotes, createNote } from './components/services/notesService';
+import { getNotes, createNote, deleteNote } from './components/services/notesService';
 import { Button, Modal } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
@@ -61,6 +61,12 @@ function App() {
     handleCloseAddNoteModal();
   };
 
+  const deleteNoteItem = async (noteToDelete: INote) => {
+    const deletedNote = await deleteNote(noteToDelete._id);
+    const remainingNotes = notesList.filter(note => note._id !== deletedNote._id);
+    setNotesList(remainingNotes);
+  };
+
   return (
     <div className="App">
       <Button variant="primary" onClick={handleShowAddNoteModal}>
@@ -112,7 +118,7 @@ function App() {
         {
           notesList.map((noteItem, index) => {
             return (
-              <Note key={index} note={noteItem} onNoteUpdate={updateNoteItem} />
+              <Note key={index} note={noteItem} onNoteUpdate={updateNoteItem} onNoteDelete={deleteNoteItem} />
             )
           })
         }

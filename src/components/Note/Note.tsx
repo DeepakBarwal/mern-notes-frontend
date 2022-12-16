@@ -5,10 +5,11 @@ import './Note.css';
 type Props = {
   note: INote;
   onNoteUpdate: (note: INote) => void;
+  onNoteDelete: (note: INote) => void;
 };
 
 // Dumb, presentational component
-const Note: FC<Props> = ({ note, onNoteUpdate }) => {
+const Note: FC<Props> = ({ note, onNoteUpdate, onNoteDelete }) => {
   const [isFocused, setIsFocused] = useState(false);
   const noteTextUpdated = (event: FocusEvent<HTMLDivElement>) => {
     setIsFocused(false);
@@ -25,6 +26,9 @@ const Note: FC<Props> = ({ note, onNoteUpdate }) => {
   
   return (
     <div className={isFocused ? 'note note--focused' : 'note'}>
+      <button onClick={() => {
+        onNoteDelete(note);
+      }} type="button" className="btn-close" aria-label="Close"></button>
       <div 
         className='note__text' 
         contentEditable={true} 
