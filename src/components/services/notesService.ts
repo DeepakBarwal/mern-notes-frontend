@@ -21,3 +21,12 @@ export const createNote = async (newNote: Partial<INote>) => {
         console.error(error);
     }
 };
+
+export const deleteNote = async (noteId: string) => {
+    try {
+        const response = await axios.delete(`${NOTES_API_URL}/${noteId}`);
+        return response.data.removedNote;
+    } catch (error) {
+        console.error(error);
+    }
+};
