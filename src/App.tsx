@@ -4,17 +4,26 @@ import { useEffect, useState } from 'react';
 import DUMMY_NOTES from './DUMMY_NOTES';
 import Note from './components/Note/Note';
 import INote from './interfaces/note.interface';
-import { getNotes } from './components/services/notesService';
+import { getNotes, createNote } from './components/services/notesService';
 import { Button, Modal } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 
 function App() {
   const [notesList, setNotesList] = useState<Array<INote>>(JSON.parse(localStorage.getItem('my-notes') || JSON.stringify(DUMMY_NOTES)));
-
   const [showAddNoteModal, setShowAddNoteModal] = useState(false);
+  const [newNote, setNewNote] = useState<Partial<INote>>({
+    link: '',
+    text: ''
+  });
 
-  const handleCloseAddNoteModal = () => setShowAddNoteModal(false);
+  const handleCloseAddNoteModal = () => {
+    setNewNote({
+      link: '',
+      text: ''
+    });
+    setShowAddNoteModal(false);
+  }
   const handleShowAddNoteModal = () => setShowAddNoteModal(true);
 
   const saveNotesToLocalStorage = () => {
@@ -36,8 +45,6 @@ function App() {
     saveNotesToLocalStorage();
   };
 
-  console.log(notesList);
-
   const updateNoteItem = (updatedNote: INote) => {
     const updatedList = notesList.map((noteItem: INote) => {
       if (noteItem._id === updatedNote._id) {
@@ -47,6 +54,12 @@ function App() {
     });
     setNotesList(updatedList);
   }
+
+  const addNote = async () => {
+    const savedNote = await createNote(newNote);
+    setNotesList([...notesList, savedNote]);
+    handleCloseAddNoteModal();
+  };
 
   return (
     <div className="App">
@@ -64,21 +77,33 @@ function App() {
           label="Text"
           className="mb-3"
           >
-            <Form.Control as="textarea" placeholder="Enter your note text" />
+            <Form.Control as="textarea" placeholder="Enter your note text" onChange={(e) => {
+              const newVal = e.currentTarget.value;
+              setNewNote({
+                ...newNote,
+                text: newVal
+              });
+            }} />
           </FloatingLabel>
           <FloatingLabel
             controlId="floatingTextarea"
             label="Link"
             className="mb-3 note-link"
           >
-          <Form.Control type='url' placeholder="Enter Note URL" />
+          <Form.Control type='url' placeholder="Enter Note URL" onChange={(e) => {
+            const newVal = e.currentTarget.value;
+            setNewNote({
+              ...newNote,
+              link: newVal
+            });
+          }} />
       </FloatingLabel>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseAddNoteModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleCloseAddNoteModal}>
+          <Button variant="primary" onClick={addNote}>
             Create
           </Button>
         </Modal.Footer>
