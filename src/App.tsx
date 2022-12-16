@@ -1,10 +1,9 @@
 import './App.css';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import DUMMY_NOTES from './DUMMY_NOTES';
 import Note from './components/Note/Note';
 import INote from './interfaces/note.interface';
-import { getNotes, createNote, deleteNote } from './components/services/notesService';
+import { getNotes, createNote, deleteNote, updateNote } from './components/services/notesService';
 import { Button, Modal } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
@@ -45,9 +44,10 @@ function App() {
     saveNotesToLocalStorage();
   };
 
-  const updateNoteItem = (updatedNote: INote) => {
+  const updateNoteItem = async (updatedNote: INote) => {
+    const updatedNoteItem = await updateNote(updatedNote);
     const updatedList = notesList.map((noteItem: INote) => {
-      if (noteItem._id === updatedNote._id) {
+      if (noteItem._id === updatedNoteItem._id) {
         return updatedNote;
       }
       return noteItem;
