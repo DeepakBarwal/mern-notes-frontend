@@ -8,6 +8,19 @@
   padding-bottom: 60px;
 }
 
+.App .add-button {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .notes-list {
   display: flex;
   flex-wrap: wrap;

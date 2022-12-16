@@ -69,8 +69,8 @@ function App() {
 
   return (
     <div className="App">
-      <Button variant="primary" onClick={handleShowAddNoteModal}>
-        Launch demo modal
+      <Button className='add-button' variant="dark" onClick={handleShowAddNoteModal}>
+        +
       </Button>
 
       <Modal show={showAddNoteModal} onHide={handleCloseAddNoteModal}>
