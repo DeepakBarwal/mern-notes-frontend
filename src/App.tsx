@@ -6,6 +6,8 @@ import Note from './components/Note/Note';
 import INote from './interfaces/note.interface';
 import { getNotes } from './components/services/notesService';
 import { Button, Modal } from 'react-bootstrap';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
 
 function App() {
   const [notesList, setNotesList] = useState<Array<INote>>(JSON.parse(localStorage.getItem('my-notes') || JSON.stringify(DUMMY_NOTES)));
@@ -54,15 +56,30 @@ function App() {
 
       <Modal show={showAddNoteModal} onHide={handleCloseAddNoteModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Add Note</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+          <FloatingLabel
+          controlId="floatingTextarea"
+          label="Text"
+          className="mb-3"
+          >
+            <Form.Control as="textarea" placeholder="Enter your note text" />
+          </FloatingLabel>
+          <FloatingLabel
+            controlId="floatingTextarea"
+            label="Link"
+            className="mb-3 note-link"
+          >
+          <Form.Control type='url' placeholder="Enter Note URL" />
+      </FloatingLabel>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseAddNoteModal}>
             Close
           </Button>
           <Button variant="primary" onClick={handleCloseAddNoteModal}>
-            Save Changes
+            Create
           </Button>
         </Modal.Footer>
       </Modal>

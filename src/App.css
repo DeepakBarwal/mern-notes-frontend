@@ -13,3 +13,7 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.note-link {
+  margin-top: 10px;
+}
