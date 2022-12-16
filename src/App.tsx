@@ -9,16 +9,6 @@ import { getNotes } from './components/services/notesService';
 function App() {
   const [notesList, setNotesList] = useState<Array<INote>>(JSON.parse(localStorage.getItem('my-notes') || JSON.stringify(DUMMY_NOTES)));
 
-  // useEffect(() => {
-  //   const notesListStringFromLocalStorage = localStorage.getItem('my-notes');
-  //   if (notesListStringFromLocalStorage) {
-  //     const notesListArrayFromStorage = JSON.parse(notesListStringFromLocalStorage);
-  //     setNotesList(notesListArrayFromStorage);
-  //   } else {
-  //     setNotesList(DUMMY_NOTES);
-  //   }
-  //   }, []);
-
   const saveNotesToLocalStorage = () => {
     const notesListString = JSON.stringify(notesList);
     localStorage.setItem('my-notes', notesListString);
