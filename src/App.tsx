@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import DUMMY_NOTES from './DUMMY_NOTES';
 import Note from './components/Note/Note';
 import INote from './interfaces/note.interface';
+import { getNotes } from './components/services/notesService';
 
 function App() {
   const [notesList, setNotesList] = useState<Array<INote>>(JSON.parse(localStorage.getItem('my-notes') || JSON.stringify(DUMMY_NOTES)));
@@ -18,21 +19,23 @@ function App() {
   //   }
   //   }, []);
 
-  useEffect(() => {
+  const saveNotesToLocalStorage = () => {
     const notesListString = JSON.stringify(notesList);
     localStorage.setItem('my-notes', notesListString);
-    getNotes();
+  };
+
+  useEffect(() => {
+    getNotesFromBackend();
   }, []);
 
-  const getNotes = async () => {
-    try {
-      const response = await axios.get(
-        `https://mern-notes-backend.vercel.app/notes`
-      );
-      setNotesList(response.data.notes);
-    } catch (error) {
-      console.error(error);
-    }
+  useEffect(() => {
+    saveNotesToLocalStorage();
+  }, [notesList]);
+
+  const getNotesFromBackend = async () => {
+    const notes = await getNotes();
+    setNotesList(notes);
+    saveNotesToLocalStorage();
   };
 
   console.log(notesList);
