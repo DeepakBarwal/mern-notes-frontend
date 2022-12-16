@@ -30,3 +30,12 @@ export const deleteNote = async (noteId: string) => {
         console.error(error);
     }
 };
+
+export const updateNote = async (noteToUpdate: INote) => {
+    try {
+        const response = await axios.put(`${NOTES_API_URL}/${noteToUpdate._id}`, noteToUpdate);
+        return response.data.updatedNote;
+    } catch (error) {
+        console.error(error);
+    }
+};
