@@ -1,4 +1,4 @@
-import { FC, FocusEvent } from 'react';
+import { FC, FocusEvent, useState } from 'react';
 import INote from '../../interfaces/note.interface';
 import './Note.css';
 
@@ -9,7 +9,9 @@ type Props = {
 
 // Dumb, presentational component
 const Note: FC<Props> = ({ note, onNoteUpdate }) => {
+  const [isFocused, setIsFocused] = useState(false);
   const noteTextUpdated = (event: FocusEvent<HTMLDivElement>) => {
+    setIsFocused(false);
     const newTextValue = event.currentTarget.textContent;
     if (newTextValue === note.text) {
       return;
@@ -20,14 +22,15 @@ const Note: FC<Props> = ({ note, onNoteUpdate }) => {
     }
     onNoteUpdate(updatedNoteObj);
   }
-
+  
   return (
-    <div className='note'>
+    <div className={isFocused ? 'note note--focused' : 'note'}>
       <div 
         className='note__text' 
         contentEditable={true} 
         suppressContentEditableWarning={true}
         onBlur={noteTextUpdated}
+        onFocus={() => setIsFocused(true)}
       >
         {note.text}
       </div>
